@@ -1,0 +1,75 @@
+logging:
+    file:
+        name: logs/cards.log
+    level:
+        sql: INFO
+        web: INFO
+management:
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+server:
+    port: 8080
+    shutdown: graceful
+spring:
+    application:
+        name: cards
+    rabbitmq:
+        host: "localhost"
+        port: 5672
+        username: "guest"
+        password: "guest"
+    data:
+        jpa:
+            repositories:
+                bootstrap-mode: deferred
+    datasource:
+        hikari:
+            auto-commit: false
+    jmx:
+        enabled: false
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        open-in-view: false
+        properties:
+            hibernate:
+                connection:
+                    provider_disables_autocommit: true
+                generate_statistics: false
+                id:
+                    new_generator_mappings: true
+                    optimizer:
+                        pooled:
+                            preferred: pooled-lo
+                jdbc:
+                    batch_size: 25
+                    lob:
+                        non_contextual_creation: true
+                    time_zone: UTC
+                order_inserts: true
+                order_updates: true
+                query:
+                    fail_on_pagination_over_collection_fetch: true
+                    in_clause_parameter_padding: true
+        show-sql: true
+    main:
+        allow-bean-definition-overriding: true
+    mvc:
+        problemdetails:
+            enabled: true
+
+cards:
+    java_version: 18
+    build_number: 0.0.1-SNAPSHOT
+    contactDetails:
+        name: Cards Sathish Jayapal
+        email: "{cipher}76c5f86ded43da846ec1200e0406f17e6746572250478b7d81203f8f762bfb65a68e341fe1e0575c7efeeff7d4c20c8d"
+cards-cloud:
+    supported_cloud_env:
+        - CardsMS_Primary_Azure
+        - CardsMS_Secondary_AWS

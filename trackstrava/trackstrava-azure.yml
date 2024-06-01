@@ -1,0 +1,19 @@
+spring:
+    rabbitmq:
+        host: "13.93.183.114"
+        port: 5672
+        username: "guest"
+        password: "guest"
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driverClassName: org.h2.Driver
+        username: sa
+        password: ''
+    h2:
+        console:
+            enabled: true
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
+        show-sql: true

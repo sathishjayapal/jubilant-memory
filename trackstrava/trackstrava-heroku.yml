@@ -1,0 +1,17 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5433/stravadb
+        username: postgres
+        password: mysecretpassword
+    rabbitmq:
+        host: "localhost"
+        port: 5672
+        username: "guest"
+        password: "guest"
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+    sql:
+        init:
+            mode: always
