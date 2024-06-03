@@ -6,8 +6,9 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/skminfotech
         driverClassName: org.postgresql.Driver
-        username: skminfotech
-        password: pass
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+
         flyway:
             locations: classpath:/db/migration/{vendor}
             validate-on-migrate: true
