@@ -41,6 +41,9 @@ eureka:
         registerWithEureka: true
         serviceUrl:
             defaultZone: http://localhost:8070/eureka/
+            user:
+                name: sathish
+                password: $2a$10$Kohzf5pqVYaqiMPaRwIZmekQK2rk58TNGgY7ddO2OND6tSP2Yhjwq
 info:
     app:
         name: "trackgarmin"
