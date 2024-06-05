@@ -40,7 +40,7 @@ eureka:
         fetchRegistry: true
         registerWithEureka: true
         serviceUrl:
-            defaultZone: http://sathish:${configserverPassword}@localhost:8888/eureka/
+            defaultZone: http://sathish:pass@localhost:8888/eureka/
 info:
     app:
         name: "trackgarmin"
