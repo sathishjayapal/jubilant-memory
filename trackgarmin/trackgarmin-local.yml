@@ -36,17 +36,11 @@ spring:
 eureka:
     instance:
         preferIpAddress: true
-    user:
-        name: sathish
-        password: pass
     client:
         fetchRegistry: true
         registerWithEureka: true
         serviceUrl:
-            defaultZone: http://localhost:8070/eureka/
-            user:
-                name: sathish
-                password: pass
+            defaultZone: http://sathish:${configserverPassword}@localhost:8888/eureka/
 info:
     app:
         name: "trackgarmin"
