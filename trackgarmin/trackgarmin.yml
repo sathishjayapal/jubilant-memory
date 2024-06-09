@@ -1,3 +1,11 @@
+eureka:
+    instance:
+        preferIpAddress: true
+    client:
+        fetchRegistry: true
+        registerWithEureka: true
+        serviceUrl:
+            defaultZone: http://sathish:pass@localhost:8888/eureka/
 management:
     endpoint:
         health:
