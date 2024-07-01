@@ -1,0 +1,14 @@
+logging:
+  file:
+    name: logs/sathishstravaproducer.log
+  level:
+    sql: INFO
+    web: INFO
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
