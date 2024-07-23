@@ -12,3 +12,14 @@ management:
     web:
       exposure:
         include: "*"
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://20.246.152.164:8070/eureka/
+    registerWithEureka: true
+server:
+  port: 8065
+spring:
+  application:
+    name: sathishstrava-data-producer
