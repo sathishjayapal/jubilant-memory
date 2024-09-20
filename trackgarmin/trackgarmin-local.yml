@@ -4,10 +4,10 @@ spring:
         virtual:
             enabled: true
     datasource:
-        url: jdbc:postgresql://localhost:5432/skminfotech
+        url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/postgres
         driverClassName: org.postgresql.Driver
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
+        username: psqladmin
+        password: pas$word1234
 
         flyway:
             locations: classpath:/db/migration/{vendor}
@@ -30,6 +30,12 @@ spring:
         hibernate:
             ddl-auto: none
         show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+                default_schema: skminfotech
+                jdbc:
+                    time_zone: UTC
     sql:
         init:
             mode: always
