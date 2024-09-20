@@ -33,7 +33,7 @@ spring:
         properties:
             hibernate:
                 format_sql: true
-                default_schema: skminfotech
+                default_schema: postgres
                 jdbc:
                     time_zone: UTC
     sql:
