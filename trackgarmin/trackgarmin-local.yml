@@ -7,7 +7,7 @@ spring:
         url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/postgres
         driverClassName: org.postgresql.Driver
         username: psqladmin
-        password: pas$word1234
+        password: psqladminpas$
 
         flyway:
             locations: classpath:/db/migration/{vendor}
