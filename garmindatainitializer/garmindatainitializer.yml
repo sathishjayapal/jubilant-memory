@@ -1,19 +1,6 @@
 # Golden copy for the client to communicate with Configserver ver #3
 # this property file setting will read app name "Accounts", profile "local" and use the retry logic
-
 spring:
   application:
     name: "garmindatainitializer"
-  cloud:
-    compatibility-verifier:
-      enabled: false
-    config:
-      username: ${configserverUsername}
-      password: ${configserverPassword}
-  config:
-    fail-fast: true
-    import: "optional:configserver:http://localhost:8888/?fail-fast=true&max-attempts=10&max-interval=1500&multiplier=1.2&initial-interval=1000"
-  threads:
-    virtual:
-      enabled: on
 
