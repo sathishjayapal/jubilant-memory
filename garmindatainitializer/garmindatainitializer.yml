@@ -1,27 +1,25 @@
-# Golden copy for the client to communicate with Configserver ver #3
-# this property file setting will read app name "Accounts", profile "local" and use the retry logic
 spring:
-  application:
-    name: "garmindatainitializer"
-    datasource:
-      url: jdbc:h2:mem:testdb
-      driverClassName: org.h2.Driver
-      username: sa
-      password: ''
-    h2:
-      console:
-        enabled: true
-    jpa:
-      database-platform: org.hibernate.dialect.H2Dialect
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-    hikari:
-      auto-commit: false
-    jmx:
-      enabled: false
-    main:
-      allow-bean-definition-overriding: true
-    mvc:
-      problemdetails:
-        enabled: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  threads:
+    virtual:
+      enabled: true
+  sql:
+    init:
+      mode: always
