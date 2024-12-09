@@ -3,4 +3,38 @@
 spring:
   application:
     name: "garmindatainitializer"
-
+    data:
+      jpa:
+        repositories:
+          bootstrap-mode: deferred
+    datasource:
+      hikari:
+        auto-commit: false
+    jmx:
+      enabled: false
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      open-in-view: false
+      properties:
+        hibernate:
+          connection:
+            provider_disables_autocommit: true
+          generate_statistics: false
+          jdbc:
+            batch_size: 25
+            lob:
+              non_contextual_creation: true
+            time_zone: UTC
+          order_inserts: true
+          order_updates: true
+          query:
+            fail_on_pagination_over_collection_fetch: true
+            in_clause_parameter_padding: true
+            plan_cache_max_size: 4096
+      show-sql: false
+    main:
+      allow-bean-definition-overriding: true
+    mvc:
+      problemdetails:
+        enabled: true
