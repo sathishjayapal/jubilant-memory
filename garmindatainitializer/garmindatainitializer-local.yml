@@ -21,3 +21,6 @@ spring:
 health:
   config:
     enabled: false
+scheduling:
+  # Cron expression to schedule tasks every 5 seconds starting at midnight every day
+  cron: 0/5 0 0 * * *
