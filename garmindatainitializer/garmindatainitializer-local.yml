@@ -1,4 +1,9 @@
+# Cron expression to schedule tasks every 5 seconds starting at midnight every day
+scheduling:
+  cron: 0/5 0 0 * * *
 spring:
+  application:
+    name: garmindatainitializer
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -12,15 +17,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
-  threads:
-    virtual:
-      enabled: true
   sql:
     init:
       mode: always
 health:
   config:
-    enabled: false
-scheduling:
-  # Cron expression to schedule tasks every 5 seconds starting at midnight every day
-  cron: 0/5 0 0 * * *
+    enabled: true
+
