@@ -1,6 +1,6 @@
 # Cron expression to schedule tasks every 5 seconds starting at midnight every day
 scheduling:
-  cron: 0/3 0 0 * * *
+  cron: 0/5 0 0 * * *
 spring:
   application:
     name: garmindatainitializer
