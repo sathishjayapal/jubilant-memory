@@ -22,3 +22,5 @@ health:
   config:
     enabled: true
 
+scheduling:
+  cron: "0/5 * * * * *"
