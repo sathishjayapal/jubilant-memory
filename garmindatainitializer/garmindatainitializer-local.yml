@@ -24,6 +24,4 @@ health:
 
 scheduling:
   cron: "0/5 * * * * *"
-location:
-  file: classpath:/activities.csv
-  url:
+
