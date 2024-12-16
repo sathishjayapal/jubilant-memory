@@ -13,8 +13,8 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
-    show-sql: false
+      ddl-auto: insert
+    show-sql: true
   sql:
     init:
       mode: always
