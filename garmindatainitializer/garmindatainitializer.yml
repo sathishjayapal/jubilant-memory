@@ -1,4 +1,19 @@
 # Cron expression to schedule tasks every 5 seconds starting at midnight every day
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+    info:
+      env:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  shutdown: graceful
 spring:
   application:
     name: garmindatainitializer
