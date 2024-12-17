@@ -25,4 +25,4 @@ health:
 scheduling:
   cron: "0/5 * * * * *"
 location:
-  fileName: "/activities1.csv"
+  fileName: "/activities.csv"
