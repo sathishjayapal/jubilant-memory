@@ -26,4 +26,4 @@ scheduling:
   cron: "0/5 * * * * *"
 location:
   fileName: "/activities1.csv"
-  url: "https://raw.githubusercontent.com/sathishjayapal/jubilant-memory/refs/heads/main/garmindatainitializer/activities1.csv"
+  url: "https://raw.githubusercontent.com/sathishjayapal/jubilant-memory/refs/heads/main/garmindatainitializer/activities.csv"
