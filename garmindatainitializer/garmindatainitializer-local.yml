@@ -1,6 +1,6 @@
 # Cron expression to schedule tasks every 5 seconds starting at midnight every day
 team:
-  value: STRAVA
+  value: GARMIN
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
