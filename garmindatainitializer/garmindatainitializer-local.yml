@@ -1,7 +1,5 @@
 # Cron expression to schedule tasks every 5 seconds starting at midnight every day
 spring:
-  application:
-    name: garmindatainitializerv2
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -21,9 +19,10 @@ spring:
 health:
   config:
     enabled: true
-
 scheduling:
   cron: "0/30 * 1 * * *"
 location:
   fileName: "/activities.csv"
   url: "https://raw.githubusercontent.com/sathishjayapal/jubilant-memory/refs/heads/main/garmindatainitializer/activities2.csv"
+team:
+  value: "GARMIN"
