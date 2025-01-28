@@ -1,7 +1,7 @@
 # Cron expression to schedule tasks every 5 seconds starting at midnight every day
 spring:
   application:
-    name: garmindatainitializer
+    name: garmindatainitializerv2
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
