@@ -14,9 +14,6 @@ management:
         include: "*"
 server:
   shutdown: graceful
-spring:
-  application:
-    name: garmindatainitializer
 health:
   config:
     enabled: true
