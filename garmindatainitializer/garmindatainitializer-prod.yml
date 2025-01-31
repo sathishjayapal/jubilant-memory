@@ -1,3 +1,6 @@
+team:
+  value: GARMIN
+  backup: STRAVA
 spring:
   datasource:
     url: jdbc:postgresql://localhost:6432/postgres
@@ -19,3 +22,8 @@ spring:
 health:
   config:
     enabled: false
+scheduling:
+  cron: "0/30 * * * * *"
+location:
+  fileName: "/activities.csv"
+  url: "https://raw.githubusercontent.com/sathishjayapal/jubilant-memory/refs/heads/main/garmindatainitializer/activities2.csv"
