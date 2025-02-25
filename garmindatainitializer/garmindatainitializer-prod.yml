@@ -3,7 +3,7 @@ team:
   backup: STRAVA
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6432/postgres
+    url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/garmin
     driverClassName: org.postgresql.Driver
     username: psqladmin
     password: psqladminpas$
