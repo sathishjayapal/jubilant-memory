@@ -4,10 +4,10 @@ team:
   backup: STRAVA
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+    url: ${garmindb}
+    driverClassName: org.postgresql.Driver
+    username: ${darmindb_user}
+    password: ${darmindb_password}
   h2:
     console:
       enabled: true

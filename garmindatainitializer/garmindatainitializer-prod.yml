@@ -3,7 +3,7 @@ team:
   backup: STRAVA
 spring:
   datasource:
-    url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/postgres?user=psqladmin&password=psqladminpas$&sslmode=require
+    url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/postgres?sslmode=require
     driverClassName: org.postgresql.Driver
     username: psqladmin
     password: psqladminpas$
