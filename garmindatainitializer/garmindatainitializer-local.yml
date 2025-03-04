@@ -12,9 +12,9 @@ spring:
     console:
       enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.postgresql.Dialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
   sql:
     init:
