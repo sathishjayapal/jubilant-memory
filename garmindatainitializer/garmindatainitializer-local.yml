@@ -8,9 +8,10 @@ spring:
     driverClassName: org.postgresql.Driver
     username: ${darmindb_user}
     password: ${darmindb_password}
+    initialization-mode: always
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
   sql:
     init:
