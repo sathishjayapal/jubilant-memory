@@ -8,11 +8,7 @@ spring:
     driverClassName: org.postgresql.Driver
     username: ${darmindb_user}
     password: ${darmindb_password}
-  h2:
-    console:
-      enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.postgresql.Dialect
     hibernate:
       ddl-auto: create
     show-sql: true
