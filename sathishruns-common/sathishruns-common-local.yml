@@ -28,4 +28,5 @@ kafka-producer-config:
 scheduling:
   cron: "0/30 * * * * *"
 file:
-  path: /Volumes/MacProHD/intellijworkspaces-donotuse/jubilant-memory/trackstrava/trackstrava.yml
+  path: /users/skminfotech/data/trackstrava.yml
+  folder: /users/skminfotech/data
