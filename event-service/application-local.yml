@@ -1,3 +1,5 @@
+server:
+  port: 8082
 ######## App Configuration #########
 app:
   cors:
@@ -50,3 +52,17 @@ spring:
     locations: classpath:/db/migration
   datasource:
     url: ${garmindb}
+    driver-class-name: org.postgresql.Driver
+    username: ${darmindb_user}
+    password: ${darmindb_password}
+    logging:
+        level:
+            org:
+            hibernate:
+                orm:
+                jdbc:
+                    bind: trace
+            net:
+                ttddyy:
+                dsproxy:
+                    listener: debug
