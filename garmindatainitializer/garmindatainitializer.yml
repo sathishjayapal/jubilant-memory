@@ -8,13 +8,13 @@ management:
     health:
       show-details: when_authorized
 
-urn:
-  connect-timeout: 1000
-  read-timeout: 1000
-  base-url: http://localhost:8082
 app:
   cors:
     path-pattern: /api/**
     allowed-origins: "*"
     allowed-methods: "*"
     allowed-headers: "*"
+  urn:
+    connect-timeout: 1000
+    read-timeout: 1000
+    base-url: http://localhost:8082
