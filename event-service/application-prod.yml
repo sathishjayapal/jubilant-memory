@@ -1,0 +1,70 @@
+server:
+  port: 8082
+######## App Configuration #########
+app:
+  cors:
+    path-pattern: /api/**
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+
+################ Actuator #####################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: configprops,env,health,info,logfile,loggers
+  endpoint:
+    health:
+      show-details: when_authorized
+
+################ Database #####################
+spring:
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+          batch_size: 25
+          lob:
+            non_contextual_creation: true
+        id:
+          new_generator_mappings: true
+          optimizer:
+            pooled:
+              preferred: pooled-lo
+        generate_statistics: false
+        order_inserts: true
+        order_updates: true
+        query:
+          fail_on_pagination_over_collection_fetch: true
+          in_clause_parameter_padding: true
+        connection:
+          provider_disables_autocommit: true
+    hibernate:
+      ddl-auto: validate
+    repositories:
+      bootstrap-mode: deferred
+  flyway:
+    locations: classpath:/db/migration
+  datasource:
+    hikari:
+      auto-commit: false
+    url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/postgres?sslmode=require
+    driver-class-name: org.postgresql.Driver
+    username: ${darmindb_user}
+    password: ${darmindb_password}
+    logging:
+      level:
+        org:
+        hibernate:
+          orm:
+          jdbc:
+            bind: trace
+        net:
+          ttddyy:
+          dsproxy:
+            listener: debug
