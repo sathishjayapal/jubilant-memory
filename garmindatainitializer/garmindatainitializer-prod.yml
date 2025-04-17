@@ -10,8 +10,6 @@ spring:
     open-in-view: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
     show-sql: true
   threads:
     virtual:
