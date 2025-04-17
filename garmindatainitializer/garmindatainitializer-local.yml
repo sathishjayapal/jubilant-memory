@@ -4,18 +4,15 @@ team:
   backup: STRAVA
 spring:
   datasource:
+    open-in-view: false
     url: ${garmindb}
     driverClassName: org.postgresql.Driver
     username: ${darmindb_user}
     password: ${darmindb_password}
-    initialization-mode: always
+
   jpa:
     hibernate:
-      ddl-auto: none
     show-sql: true
-  sql:
-    init:
-      mode: always
 health:
   config:
     enabled: true
