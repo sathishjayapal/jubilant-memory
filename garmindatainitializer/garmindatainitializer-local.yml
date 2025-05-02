@@ -14,6 +14,8 @@ spring:
     schema:
       - runs_schema
     hibernate:
+      schema:
+        - runs_schema
       ddl-auto: none
     show-sql: true
   sql:
