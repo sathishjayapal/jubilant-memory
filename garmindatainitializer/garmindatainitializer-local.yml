@@ -11,6 +11,8 @@ spring:
     schema: runs_schema
     initialization-mode: auto
   jpa:
+    schema:
+      - runs_schema
     hibernate:
       ddl-auto: none
     show-sql: true
