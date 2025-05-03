@@ -1,44 +1,26 @@
-
 spring:
     threads:
         virtual:
             enabled: true
     datasource:
-        url: jdbc:postgresql://testsathisprj1postgres.postgres.database.azure.com:5432/postgres
+        url: ${garmindb}
         driverClassName: org.postgresql.Driver
-        username: psqladmin
-        password: psqladminpas$
-
-        flyway:
-            locations: classpath:/db/migration/{vendor}
-            validate-on-migrate: true
-    flyway:
-        baseline-on-migrate: true
-        enabled: true
-        clean-on-validation-error: true
-        clean-disabled: false
+        username: ${darmindb_user}
+        password: ${darmindb_password}
+        schema: runs_schema
     rabbitmq:
         host: "localhost"
         port: 5672
         username: "guest"
         password: "guest"
-    h2:
-        console:
-            enabled: true
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
-        hibernate:
-            ddl-auto: update
         show-sql: true
         properties:
             hibernate:
                 format_sql: true
-                default_schema: postgres
                 jdbc:
                     time_zone: UTC
-    sql:
-        init:
-            mode: always
 info:
     app:
         name: "trackgarmin"
@@ -48,7 +30,6 @@ decorator:
         datasource-proxy:
             json-format: true
             format-sql: true
-
         flexy-pool:
             threshold:
                 connection:
