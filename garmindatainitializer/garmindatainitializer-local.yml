@@ -9,7 +9,7 @@ spring:
     username: ${darmindb_user}
     password: ${darmindb_password}
     schema: runs_schema
-    initialization-mode: auto
+    initialization-mode: validate
   jpa:
     show-sql: true
     open-in-view: false
