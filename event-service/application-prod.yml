@@ -42,6 +42,8 @@ spring:
           in_clause_parameter_padding: true
         connection:
           provider_disables_autocommit: true
+    hibernate:
+      ddl-auto: validate
     repositories:
       bootstrap-mode: deferred
   flyway:

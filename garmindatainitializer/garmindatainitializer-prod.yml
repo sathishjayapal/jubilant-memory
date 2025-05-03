@@ -7,13 +7,15 @@ spring:
     driverClassName: org.postgresql.Driver
     username: ${darmindb_user}
     password: ${darmindb_password}
-    open-in-view: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   threads:
     virtual:
       enabled: true
+  sql:
+    init:
+      mode: always
 health:
   config:
     enabled: false
