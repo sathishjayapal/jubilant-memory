@@ -5,28 +5,33 @@ spring:
         username: "guest"
         password: "guest"
     datasource:
-        url: jdbc:h2:mem:testdb
-        driverClassName: org.h2.Driver
-        username: sa
-        password: ''
-
-    h2:
-        console:
-            enabled: true
+        url: ${garmindb}
+        driverClassName: org.postgresql.Driver
+        username: ${darmindb_user}
+        password: ${darmindb_password}
+        schema: runs_schema
+        initialization-mode: always
     jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
-        hibernate:
-            ddl-auto: update
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
-eureka:
-    instance:
-        preferIpAddress: true
-    client:
-        fetchRegistry: true
-        registerWithEureka: true
-        serviceUrl:
-            defaultZone: http://localhost:8070/eureka/
+        open-in-view: false
+    sql:
+        init:
+            mode: always
 info:
     app:
         name: "trackstrava"
         version: "1.0.0"
+server:
+    port: 9032
+    shutdown: graceful
+decorator:
+    datasource:
+        datasource-proxy:
+            json-format: true
+            format-sql: true
+        flexy-pool:
+            threshold:
+                connection:
+                    acquire: -1
+                    lease: 0
