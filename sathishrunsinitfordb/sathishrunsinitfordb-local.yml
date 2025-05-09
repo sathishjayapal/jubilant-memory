@@ -1,0 +1,18 @@
+# Cron expression to schedule tasks every 5 seconds starting at midnight every day
+spring:
+  datasource:
+    url: ${garmindb}
+    driverClassName: org.postgresql.Driver
+    username: ${darmindb_user}
+    password: ${darmindb_password}
+    schema: runs_schema
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+health:
+  config:
+    enabled: true
