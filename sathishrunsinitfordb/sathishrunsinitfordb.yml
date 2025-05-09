@@ -1,0 +1,23 @@
+# Cron expression to schedule tasks every 5 seconds starting at midnight every day
+management:
+  endpoints:
+    web:
+      exposure:
+        include: configprops,env,health,info,logfile,loggers
+  endpoint:
+    health:
+      show-details: when_authorized
+
+app:
+  cors:
+    path-pattern: /api/**
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+  urn:
+    connect-timeout: 1000
+    read-timeout: 1000
+    base-url: http://localhost:8082
+  db:
+    shedlockTableName: runs_schema.shedlock
+    defaultSchema: runs_schema
