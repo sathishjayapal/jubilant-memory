@@ -1,0 +1,77 @@
+version: '3.8'
+name: mytracker
+services:
+  postgres:
+    image: 'postgres:17'
+    environment:
+      - 'POSTGRES_DB=postgres'
+      - 'POSTGRES_PASSWORD=psqladminpas$'
+      - 'POSTGRES_USER=psqladmin'
+    ports:
+      - '5432:5432'
+  activemq_artemis:
+    image: 'apache/activemq-artemis:2.37.0'
+    container_name: 'activemq_artemis'
+    environment:
+        - 'ARTEMIS_USERNAME=admin'
+        - 'ARTEMIS_PASSWORD=admin'
+    ports:
+        - '8161:8161'
+        - '61616:61616'
+    networks:
+        - seedappnet
+    # RabbitMQ service engine
+  emailhog:
+    image: 'richarvey/mailhog'
+    container_name: mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025  # use this to access from browser
+    networks:
+      - seedappnet
+  zipkin:
+    image: 'openzipkin/zipkin'
+    container_name: zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - seedappnet
+
+  # conductor related service
+  conduktor-console:
+    image: conduktor/conduktor-console:1.24.0
+    platform: linux/amd64
+    hostname: sathishconduktor-console
+    container_name: sathishconduktor-console
+    ports:
+      - "9080:9080"
+    volumes:
+      - type: bind
+        source: "./config.yaml"
+        target: /opt/conduktor/config.yaml
+        read_only: true
+      - conduktor_data:/var/conduktor
+    environment:
+      CDK_IN_CONF_FILE: /opt/conduktor/config.yaml
+      CDK_LISTENING_PORT: "9080"
+      CDK_DATABASE_URL: "postgresql://psqladmin:psqladminpas$@docker.for.mac.host.internal:5432/conduktor-console"
+      CDK_CLUSTERS_0_ID: "sathish-local-kafka"
+      CDK_CLUSTERS_0_NAME: "sathish-local-kafka"
+      CDK_CLUSTERS_0_BOOTSTRAPSERVERS: "192.168.5.68:9092"
+      CDK_CLUSTERS_0_COLOR: "#6A57C8"
+      CDK_CLUSTERS_0_ICON: "kafka"
+      CDK_MONITORING_CORTEX-URL: http://conduktor-monitoring:9009/
+      CDK_MONITORING_ALERT-MANAGER-URL: http://conduktor-monitoring:9010/
+      CDK_MONITORING_CALLBACK-URL: http://conduktor-console:9080/monitoring/api/
+      CDK_MONITORING_NOTIFICATIONS-CALLBACK-URL: http://localhost:9080
+  conduktor-monitoring:
+    image: conduktor/conduktor-console-cortex:1.24.0
+    environment:
+      CDK_CONSOLE-URL: "http://sathishconduktor-console:9080"
+volumes:
+  conduktor_data: {}
+  rabbitmq_data:  {}
+  rabbitmq_log: {}
+networks:
+  seedappnet:
+    driver: bridge

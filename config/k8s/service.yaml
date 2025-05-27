@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sathish-project-service
+  namespace: sathishproject
+spec:
+  selector:
+    app: sathish-config-server
+  ports:
+    - port: 8888
+      targetPort: 8888
+      protocol: TCP
+  type: LoadBalancer

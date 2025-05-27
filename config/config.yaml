@@ -1,0 +1,27 @@
+organization:
+  name: "conduktor"
+
+database:
+  host: 0.0.0.0
+  port: 5439
+  name: postgres
+  username: psqladmin
+  password: psqladminpas$
+  connection_timeout: 30 # in seconds
+
+admin:
+  email: "sathish@skminfotech.com"
+  password: "admin"
+
+auth:
+  local-users:
+    - email: sats@skminfotech.com
+      password: user
+
+monitoring:
+  cortex-url: http://conduktor-monitoring:9009/
+  alert-manager-url: http://conduktor-monitoring:9010/
+  callback-url: http://conduktor-console:9080/monitoring/api/
+  notifications-callback-url: http://localhost:9080
+
+# license: "" license key if Enterprise
