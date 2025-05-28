@@ -1,15 +1,24 @@
 version: '3.8'
-name: mytracker
+name: sathish-project-infra
 services:
-  postgres:
+  postgres-shedlock-post-db:
     image: 'postgres:17'
-    container_name: 'postgres'
+    container_name: 'postgres-shedlock-post-db'
     environment:
        POSTGRES_DB: postgres
        POSTGRES_PASSWORD: psqladminpas$
        POSTGRES_USER: psqladmin
     ports:
       - "5439:5432"
+  mytracker-db:
+    image: 'postgres:17'
+    container_name: 'mytracker-db'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: psqladminpas$
+      POSTGRES_USER: psqladmin
+    ports:
+      - "5440:5432"
   sathishproject-rabbitmq:
     image: rabbitmq:4.0.4-management
     container_name: sathishproject-rabbitmq
