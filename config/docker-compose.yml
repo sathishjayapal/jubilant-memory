@@ -20,7 +20,7 @@ services:
     ports:
       - "5440:5432"
   sathishproject-rabbitmq:
-    image: rabbitmq:4.0.4-management
+    image: rabbitmq:4.1-management-alpine
     container_name: sathishproject-rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
