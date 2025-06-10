@@ -1,14 +1,6 @@
-name: sathisproject-docker-compose
+version: '3.8'
+name: sathish-project-infra
 services:
-  mytracker-db:
-    image: 'postgres:17'
-    container_name: 'mytracker-db'
-    environment:
-       POSTGRES_DB: postgres
-       POSTGRES_PASSWORD: psqladminpas$
-       POSTGRES_USER: psqladmin
-    ports:
-      - "5440:5432"
   postgres-shedlock-post-db:
     image: 'postgres:17'
     container_name: 'postgres-shedlock-post-db'
@@ -18,8 +10,17 @@ services:
       POSTGRES_USER: psqladmin
     ports:
       - "5439:5432"
+  mytracker-db:
+    image: 'postgres:17'
+    container_name: 'mytracker-db'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: psqladminpas$
+      POSTGRES_USER: psqladmin
+    ports:
+      - "5440:5432"
   sathishproject-rabbitmq:
-    image: rabbitmq:4.0.4-management
+    image: rabbitmq:4.1-management-alpine
     container_name: sathishproject-rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
