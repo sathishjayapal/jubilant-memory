@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: sathishproject
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6439
+      targetPort: 5432
+      name: postgres
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: sathishproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - containerPort: 6432
+          env:
+            - name: POSTGRES_DB
+              value: event-service
+            - name: POSTGRES_USER
+              value: psqladmin
+            - name: POSTGRES_PASSWORD
+              value: psqladminpas$
+
