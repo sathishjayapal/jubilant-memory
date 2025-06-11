@@ -4,7 +4,7 @@ metadata:
   name: sathish-config-server-pod
   namespace: sathishproject
 spec:
-    replicas: 1
+    replicas: 3
     selector:
       matchLabels:
         app: sathish-config-server
@@ -32,3 +32,5 @@ spec:
                 value: "sathish"
               - name: pass
                 value: "pass"
+
+
