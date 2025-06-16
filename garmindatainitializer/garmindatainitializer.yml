@@ -17,7 +17,7 @@ app:
   urn:
     connect-timeout: 1000
     read-timeout: 1000
-    base-url: http://localhost:8082
+    base-url: http://localhost:9081
   db:
     shedlockTableName: runs_schema.shedlock
     defaultSchema: runs_schema
