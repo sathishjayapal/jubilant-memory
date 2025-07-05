@@ -6,7 +6,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 6439
+    - port: 5432
       targetPort: 5432
       name: postgres
   selector:
@@ -31,12 +31,11 @@ spec:
         - name: postgres
           image: postgres:17
           ports:
-            - containerPort: 6432
+            - containerPort: 5432
           env:
             - name: POSTGRES_DB
               value: event-service
             - name: POSTGRES_USER
               value: psqladmin
             - name: POSTGRES_PASSWORD
-              value: psqladminpas$
-
+              value: "psqladminpas$"
