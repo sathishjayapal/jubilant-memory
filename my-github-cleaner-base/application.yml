@@ -1,0 +1,18 @@
+# Exchange names
+fanout_exchange: x.sathishprojects.fanout
+dlx_exchange: x.sathishprojects.dlx.exchange
+github_events_exchange: x.sathishprojects.github.events.exchange
+github_events_dlx_exchange: x.sathishprojects.github.events.dlx.exchange
+
+# Queue names
+sat_projects_events_queue: q.sathishprojects.events
+dlq_sat_projects_events_queue: dlq.sathishprojects.events
+github_api_events_queue: q.sathishprojects.github.api.events
+github_ops_events_queue: q.sathishprojects.github.ops.events
+dlq_github_api_events_queue: dlq.sathishprojects.github.api.events
+dlq_github_ops_events_queue: dlq.sathishprojects.github.ops.events
+
+# Routing keys
+github_api_routing_key: sathishprojects.github.api.*
+github_ops_routing_key: sathishprojects.github.ops.*
+message_ttl_ms: 10000 # 10 seconds
