@@ -1,0 +1,30 @@
+server:
+  port: 9080
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_DATABASE_URL:mongodb://localhost:27017/gotoaws-sathish}
+  docker:
+    compose:
+      lifecycle-management: start-only
+mongock:
+  migration-scan-package: me.sathish.gotoaws.gotoaws_sathish.changelogs
+  transactional: true
+error:
+  handling:
+    http-status-in-json-response: true
+    exception-logging: NO_LOGGING
+    full-stacktrace-http-statuses: 5xx
+    log-levels:
+      5xx: ERROR
+    codes:
+      UserNameUnique: USER_NAME_UNIQUE
+      ProjectProjectnameUnique: PROJECT_PROJECTNAME_UNIQUE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
