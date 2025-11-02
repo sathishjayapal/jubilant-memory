@@ -3,12 +3,12 @@ server:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_DATABASE_URL:mongodb://localhost:27017/gotoaws-sathish}
+      uri: ${MONGODB_DATABASE_URL:mongodb://localhost:27018/gotoaws-sathish?replicaSet=rs0}
   docker:
     compose:
       lifecycle-management: start-only
 mongock:
-  migration-scan-package: me.sathish.gotoaws.gotoaws_sathish.changelogs
+  migration-scan-package: me.sathish.gotoaws_sathish.changelogs
   transactional: true
 error:
   handling:
