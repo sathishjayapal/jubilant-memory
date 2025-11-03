@@ -1,7 +1,4 @@
 witraffic-limits-service.properties/jubilant-memory.iml
 /jubilant-memory.iml
-/.idea/.gitignore
-/.idea/jubilant-memory.iml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/vcs.xml
+/.idea
+.configserverenv
