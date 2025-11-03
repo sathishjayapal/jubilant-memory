@@ -3,7 +3,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/gotoaws-sathish?replicaSet=rs0
+      uri: mongodb://localhost:27017/gotoaws-sathish
   docker:
     compose:
       lifecycle-management: start-only
