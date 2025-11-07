@@ -1,4 +1,5 @@
-sathish.message: This is awesome message here
+sathish:
+  message: This is awesome message here
 server:
   port: 9081
 spring:
