@@ -29,4 +29,4 @@ management:
     health:
       show-details: always
 sathish:
-  message: This is awesome message here v2
+  message: This is awesome message here v3
