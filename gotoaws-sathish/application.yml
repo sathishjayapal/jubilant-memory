@@ -27,6 +27,7 @@ management:
         include: "*"
   endpoint:
     health:
+
       show-details: always
 sathish:
   message: This is awesome message here v3
