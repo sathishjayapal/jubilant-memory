@@ -1,5 +1,6 @@
 # Exchange names
 fanout_exchange: x.sathishprojects.fanout
+sathish_project_events_exchange: x.sathishprojects.events
 dlx_exchange: x.sathishprojects.dlx.exchange
 github_events_exchange: x.sathishprojects.github.events.exchange
 github_events_dlx_exchange: x.sathishprojects.github.events.dlx.exchange
