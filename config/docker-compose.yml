@@ -1,5 +1,14 @@
 name: sathish-project-infra
 services:
+  postgres:
+    container_name: event-service-db
+    image: postgres:17.5
+    environment:
+      - POSTGRES_DB=event-service
+      - POSTGRES_USER=psqladmin
+      - POSTGRES_PASSWORD=psqladminpas$
+    ports:
+      - 6433:5432
   postgres-shedlock-post-db:
     image: 'postgres:17'
     container_name: 'postgres-shedlock-post-db'
@@ -9,6 +18,17 @@ services:
       POSTGRES_USER: psqladmin
     ports:
       - "5441:5432"
+  runs-app-db:
+    image: 'postgres:17'
+    container_name: 'runs-app-db'
+    profiles:
+      - runs-app
+    environment:
+      POSTGRES_DB: runs-app
+      POSTGRES_PASSWORD: psqladminpas$
+      POSTGRES_USER: psqladmin
+    ports:
+      - "5442:5432"
   mytracker-db:
     image: 'postgres:17'
     container_name: 'mytracker-db'
@@ -36,3 +56,47 @@ services:
       resources:
         limits:
           memory: 500m
+
+  config-server:
+    container_name: sathish-config-server
+    image: travelhelper0h/sathishproject-config-server:latest
+    ports:
+      - "8888:8888"
+    environment:
+      - GIT_URI=${GIT_URI}
+      - encrypt_key=${encrypt_key}
+      - username=${username}
+      - pass=${pass}
+      - APP_PORT=${APP_PORT}
+    networks:
+      - gotoaws_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    container_name: mongodb_gotoaws_sathish
+    image: mongo:8.0.13
+    environment:
+      - MONGO_INITDB_DATABASE=gotoaws-sathish
+    command:
+      - --replSet
+      - rs0
+      - --bind_ip_all
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: test $$(mongosh --quiet --eval "try {rs.initiate({_id:'rs0',members:[{_id:0,host:\"mongodb:27017\"}]})}
+        catch(e) {rs.status().ok}") -eq 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - gotoaws_net
+
+networks:
+  gotoaws_net:
+    driver: bridge
+
