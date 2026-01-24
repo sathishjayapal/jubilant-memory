@@ -8,7 +8,6 @@ spring:
     driverClassName: org.postgresql.Driver
     username: ${darmindb_user}
     password: ${darmindb_password}
-    schema: runs_schema
     initialization-mode: always
   jpa:
     show-sql: true
