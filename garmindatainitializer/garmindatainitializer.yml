@@ -19,5 +19,4 @@ app:
     read-timeout: 1000
     base-url: http://localhost:9081
   db:
-    shedlockTableName: runs_schema.shedlock
-    defaultSchema: runs_schema
+    shedlockTableName: shedlock
