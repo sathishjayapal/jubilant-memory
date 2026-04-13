@@ -1,0 +1,92 @@
+######## EventTracker Production Configuration #########
+server:
+  port: 9081
+
+################ Database #####################
+spring:
+  datasource:
+    url: ${EVENTSTRACKER_DB_URL:jdbc:postgresql://eventstracker-db:5432/eventstracker}
+    username: ${EVENTSTRACKER_DB_USER:psqladmin}
+    password: ${EVENTSTRACKER_DB_PASSWORD}
+    hikari:
+      connection-timeout: 50000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      auto-commit: false
+      connection-test-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+          batch_size: 50
+        id:
+          new_generator_mappings: true
+        generate_statistics: false
+        order_inserts: true
+        order_updates: true
+        connection:
+          provider_disables_autocommit: true
+  flyway:
+    locations: classpath:/db/migration
+
+################ RabbitMQ #####################
+  rabbitmq:
+    host: ${RABBITMQ_HOST:sathishproject-rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    connection-timeout: 30000
+
+################ Actuator #####################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+
+################ Error Handling #####################
+error:
+  handling:
+    http-status-in-json-response: true
+    exception-logging: MESSAGE_ONLY
+    full-stacktrace-http-statuses: 5xx
+    log-levels:
+      5xx: ERROR
+    http-statuses:
+      org.springframework.security.authorization.AuthorizationDeniedException: unauthorized
+
+################ EventTracker Specific #####################
+sathishprojects:
+  sathish_project_events_exchange: x.sathishprojects.fanout
+  github_routing_key: sathishprojects.github.api.event
+  garmin_routing_key: sathishprojects.garmin.api.event
+
+eventDomainUser: ${EVENT_DOMAIN_USER:sathish}
+eventDomainUserPassword: ${EVENT_DOMAIN_USER_PASSWORD}
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false
+
+################ Logging #####################
+logging:
+  level:
+    me.sathish: INFO
+    org.springframework.cloud.config: INFO
+    org.springframework.web: WARN
+    org.hibernate: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

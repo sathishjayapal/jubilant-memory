@@ -1,0 +1,87 @@
+######## EventTracker Local Configuration #########
+server:
+  port: 9081
+
+################ Database #####################
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:6433/event-service
+    username: psqladmin
+    password: psqladminpas$
+    hikari:
+      connection-timeout: 50000
+      maximum-pool-size: 10
+      auto-commit: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+          batch_size: 25
+        id:
+          new_generator_mappings: true
+        generate_statistics: false
+        order_inserts: true
+        order_updates: true
+        connection:
+          provider_disables_autocommit: true
+  flyway:
+    locations: classpath:/db/migration
+
+################ RabbitMQ #####################
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+################ Actuator #####################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,configprops
+  endpoint:
+    health:
+      show-details: always
+
+################ Error Handling #####################
+error:
+  handling:
+    http-status-in-json-response: true
+    exception-logging: NO_LOGGING
+    full-stacktrace-http-statuses: 5xx
+    log-levels:
+      5xx: ERROR
+    http-statuses:
+      org.springframework.security.authorization.AuthorizationDeniedException: unauthorized
+
+################ EventTracker Specific #####################
+sathishprojects:
+  sathish_project_events_exchange: x.sathishprojects.fanout
+  github_routing_key: sathishprojects.github.api.event
+  garmin_routing_key: sathishprojects.garmin.api.event
+
+eventDomainUser: sathish
+eventDomainUserPassword: ${EVENT_DOMAIN_USER_PASSWORD:sathish123}
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      custom-appender-class: com.p6spy.engine.spy.appender.MultiLineFormat
+
+################ Logging #####################
+logging:
+  level:
+    me.sathish: DEBUG
+    org.springframework.cloud.config: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
