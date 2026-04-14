@@ -69,8 +69,8 @@ sathishprojects:
   github_routing_key: sathishprojects.github.api.event
   garmin_routing_key: sathishprojects.garmin.api.event
 
-eventDomainUser: sathish
-eventDomainUserPassword: ${EVENT_DOMAIN_USER_PASSWORD:sathish123}
+eventDomainUser: ${EVENT_DOMAIN_USER}
+eventDomainUserPassword: ${EVENT_DOMAIN_USER_PASSWORD}
 
 decorator:
   datasource:
