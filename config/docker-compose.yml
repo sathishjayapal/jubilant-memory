@@ -4,9 +4,9 @@ services:
     container_name: event-service-db
     image: postgres:17.5
     environment:
-      - POSTGRES_DB=event-service
-      - POSTGRES_USER=psqladmin
-      - POSTGRES_PASSWORD=psqladminpas$
+      - POSTGRES_DB=${EVENTS_TRACKER_DB_NAME:-event-service}
+      - POSTGRES_USER=${EVENTS_TRACKER_DB_USER}
+      - POSTGRES_PASSWORD=${EVENTS_TRACKER_DB_PASSWORD}
     ports:
       - 6433:5432
   postgres-shedlock-post-db:
@@ -71,7 +71,7 @@ services:
     networks:
       - gotoaws_net
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -88,8 +88,7 @@ services:
     ports:
       - 27017:27017
     healthcheck:
-      test: test $$(mongosh --quiet --eval "try {rs.initiate({_id:'rs0',members:[{_id:0,host:\"mongodb:27017\"}]})}
-        catch(e) {rs.status().ok}") -eq 1
+      test: test $$(mongosh --quiet --eval "try {rs.initiate({_id:'rs0',members:[{_id:0,host:\"mongodb:27017\"}]})} catch(e) {rs.status().ok}") -eq 1
       interval: 5s
       timeout: 5s
       retries: 10
@@ -99,4 +98,3 @@ services:
 networks:
   gotoaws_net:
     driver: bridge
-
