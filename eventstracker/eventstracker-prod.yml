@@ -5,9 +5,9 @@ server:
 ################ Database #####################
 spring:
   datasource:
-    url: ${EVENTSTRACKER_DB_URL:jdbc:postgresql://eventstracker-db:5432/eventstracker}
-    username: ${EVENTSTRACKER_DB_USER:psqladmin}
-    password: ${EVENTSTRACKER_DB_PASSWORD}
+    url: ${EVENTS_TRACKER_DB_URL}
+    username: ${EVENTS_TRACKER_DB_USER}
+    password: ${EVENTS_TRACKER_DB_PASSWORD}
     hikari:
       connection-timeout: 50000
       maximum-pool-size: 20
@@ -39,10 +39,10 @@ spring:
 
 ################ RabbitMQ #####################
   rabbitmq:
-    host: ${RABBITMQ_HOST:sathishproject-rabbitmq}
-    port: ${RABBITMQ_PORT:5672}
-    username: ${RABBITMQ_USERNAME:guest}
-    password: ${RABBITMQ_PASSWORD:guest}
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
     connection-timeout: 30000
 
 ################ Actuator #####################
@@ -72,7 +72,7 @@ sathishprojects:
   github_routing_key: sathishprojects.github.api.event
   garmin_routing_key: sathishprojects.garmin.api.event
 
-eventDomainUser: ${EVENT_DOMAIN_USER:sathish}
+eventDomainUser: ${EVENT_DOMAIN_USER}
 eventDomainUserPassword: ${EVENT_DOMAIN_USER_PASSWORD}
 
 decorator:

@@ -5,9 +5,9 @@ server:
 ################ Database #####################
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6433/event-service
-    username: psqladmin
-    password: psqladminpas$
+    url: ${EVENTS_TRACKER_DB_URL}
+    username: ${EVENTS_TRACKER_DB_USER}
+    password: ${EVENTS_TRACKER_DB_PASSWORD}
     hikari:
       connection-timeout: 50000
       maximum-pool-size: 10
@@ -37,10 +37,10 @@ spring:
 
 ################ RabbitMQ #####################
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
 
 ################ Actuator #####################
 management:
