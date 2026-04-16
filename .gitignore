@@ -2,3 +2,6 @@ witraffic-limits-service.properties/jubilant-memory.iml
 /jubilant-memory.iml
 /.idea
 .configserverenv
+/config/.env
+/config/.env.*
+!/config/.env.example
