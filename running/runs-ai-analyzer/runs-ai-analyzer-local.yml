@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: ${RUNS_AI_ANALYZER_DB_URL:jdbc:postgresql://localhost:5444/${RUNS_AI_ANALYZER_DB_NAME:runs-ai-analyzer}}
+    username: ${RUNS_AI_ANALYZER_DB_USER:${EVENTS_TRACKER_DB_USER}}
+    password: ${RUNS_AI_ANALYZER_DB_PASSWORD:${EVENTS_TRACKER_DB_PASSWORD}}
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:}
+      chat:
+        options:
+          model: ${ANTHROPIC_CHAT_MODEL:claude-sonnet-4-5-20250929}
+          temperature: ${ANTHROPIC_CHAT_TEMPERATURE:0.3}
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      embedding:
+        enabled: true
+        options:
+          model: ${OLLAMA_EMBEDDING_MODEL:nomic-embed-text}
+
+rag:
+  cache:
+    enabled: ${RAG_CACHE_ENABLED:true}
+    similarity-threshold: ${RAG_CACHE_SIMILARITY_THRESHOLD:0.85}
+    ttl-days: ${RAG_CACHE_TTL_DAYS:7}
+
+logging:
+  level:
+    me.sathish.runs_ai_analyzer: DEBUG
+    org.springframework.cloud.config: DEBUG
+    org.springframework.ai: INFO

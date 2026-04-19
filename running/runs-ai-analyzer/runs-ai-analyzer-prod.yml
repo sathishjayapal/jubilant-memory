@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: ${RUNS_AI_ANALYZER_DB_URL}
+    username: ${RUNS_AI_ANALYZER_DB_USER}
+    password: ${RUNS_AI_ANALYZER_DB_PASSWORD}
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-test-query: SELECT 1
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    connection-timeout: 30000
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY}
+      chat:
+        options:
+          model: ${ANTHROPIC_CHAT_MODEL:claude-sonnet-4-5-20250929}
+          temperature: ${ANTHROPIC_CHAT_TEMPERATURE:0.2}
+    ollama:
+      base-url: ${OLLAMA_BASE_URL}
+      embedding:
+        enabled: true
+        options:
+          model: ${OLLAMA_EMBEDDING_MODEL:nomic-embed-text}
+
+rag:
+  cache:
+    enabled: ${RAG_CACHE_ENABLED:true}
+    similarity-threshold: ${RAG_CACHE_SIMILARITY_THRESHOLD:0.88}
+    ttl-days: ${RAG_CACHE_TTL_DAYS:14}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    me.sathish.runs_ai_analyzer: INFO
+    org.springframework.cloud.config: INFO
+    org.springframework.ai: WARN
