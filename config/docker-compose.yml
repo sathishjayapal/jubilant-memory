@@ -36,8 +36,8 @@ services:
       - running-ai
     environment:
       POSTGRES_DB: ${RUNS_AI_ANALYZER_DB_NAME:-runs-ai-analyzer}
-      POSTGRES_PASSWORD: ${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}
-      POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
+      POSTGRES_PASSWORD: ${RUNS_AI_ANALYZER_DB_PASSWORD:?set in config/.env}
+      POSTGRES_USER: ${RUNS_AI_ANALYZER_DB_USER:?set in config/.env}
     ports:
       - "5444:5432"
   mytracker-db:
