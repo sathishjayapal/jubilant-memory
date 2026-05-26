@@ -9,15 +9,32 @@ spring:
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
   flyway:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
+  docker:
+    compose:
+      enabled: false
+      lifecycle-management: none
   rabbitmq:
     host: ${RABBITMQ_HOST}
     port: ${RABBITMQ_PORT}
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}
+    listener:
+      prefetch: ${RABBITMQ_LISTENER_PREFETCH:10}
+      concurrency: ${RABBITMQ_LISTENER_CONCURRENCY:2}
+      max-concurrency: ${RABBITMQ_LISTENER_MAX_CONCURRENCY:5}
   ai:
     anthropic:
       api-key: ${ANTHROPIC_API_KEY:}
@@ -31,12 +48,49 @@ spring:
         enabled: true
         options:
           model: ${OLLAMA_EMBEDDING_MODEL:nomic-embed-text}
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 768
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,configprops
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 rag:
   cache:
     enabled: ${RAG_CACHE_ENABLED:true}
     similarity-threshold: ${RAG_CACHE_SIMILARITY_THRESHOLD:0.85}
     ttl-days: ${RAG_CACHE_TTL_DAYS:7}
+
+runs-app:
+  base-url: ${RUNS_APP_BASE_URL:http://localhost:8080}
+
+analysis:
+  batch:
+    size: ${ANALYSIS_BATCH_SIZE:5}
+    window-minutes: ${ANALYSIS_BATCH_WINDOW_MINUTES:60}
+    interval-ms: ${ANALYSIS_BATCH_INTERVAL_MS:30000}
+
+reconciliation:
+  enabled: ${RECONCILIATION_ENABLED:true}
+  max-retries: ${RECONCILIATION_MAX_RETRIES:3}
+  retry-delay-minutes: ${RECONCILIATION_RETRY_DELAY_MINUTES:30}
+  lookback-days: ${RECONCILIATION_LOOKBACK_DAYS:7}
+  cron: ${RECONCILIATION_CRON:0 0 */6 * * *}
 
 logging:
   level:
