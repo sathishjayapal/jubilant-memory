@@ -44,7 +44,10 @@ spring:
           model: ${ANTHROPIC_CHAT_MODEL:claude-sonnet-4-5-20250929}
           temperature: ${ANTHROPIC_CHAT_TEMPERATURE:0.3}
     ollama:
-      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      base-url: ${OLLAMA_BASE_URL}
+      chat:
+        options:
+          model: ${OLLAMA_CHAT_MODEL:llama3.2}
       embedding:
         enabled: true
         options:
@@ -78,7 +81,7 @@ rag:
     ttl-days: ${RAG_CACHE_TTL_DAYS:7}
 
 runs-app:
-  base-url: ${RUNS_APP_BASE_URL:http://localhost:8080}
+  base-url: ${RUNS_APP_BASE_URL}
 
 analysis:
   batch:
