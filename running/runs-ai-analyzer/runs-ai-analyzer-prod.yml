@@ -50,6 +50,8 @@ spring:
       chat:
         options:
           model: ${OLLAMA_CHAT_MODEL:llama3.2}
+        request:
+          timeout: ${OLLAMA_CHAT_TIMEOUT:600s}
       embedding:
         enabled: true
         options:
