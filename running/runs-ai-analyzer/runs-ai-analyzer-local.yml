@@ -47,7 +47,7 @@ spring:
       base-url: ${OLLAMA_BASE_URL}
       chat:
         options:
-          model: ${OLLAMA_CHAT_MODEL:llama3.2}
+          model: ${OLLAMA_CHAT_MODEL}
         request:
           timeout: ${OLLAMA_CHAT_TIMEOUT:600s}
       embedding:
