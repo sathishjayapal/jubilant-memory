@@ -36,6 +36,7 @@ spring:
     locations: classpath:/db/migration
 
 ################ RabbitMQ #####################
+
   rabbitmq:
     host: ${RABBITMQ_HOST}
     port: ${RABBITMQ_PORT}
