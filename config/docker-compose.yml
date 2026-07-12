@@ -9,6 +9,9 @@ services:
       - POSTGRES_PASSWORD=${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}
     ports:
       - 6433:5432
+    volumes:
+      # persist eventstracker data across container recreation
+      - event_service_pg_data:/var/lib/postgresql/data
   postgres-shedlock-post-db:
     image: 'postgres:17'
     container_name: 'postgres-shedlock-post-db'
@@ -18,6 +21,8 @@ services:
       POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
     ports:
       - "5441:5432"
+    volumes:
+      - shedlock_pg_data:/var/lib/postgresql/data
   runs-app-db:
     image: 'postgres:17'
     container_name: 'runs-app-db'
@@ -29,6 +34,8 @@ services:
       POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
     ports:
       - "5442:5432"
+    volumes:
+      - runs_app_shared_pg_data:/var/lib/postgresql/data
   runs-ai-analyzer-db:
     image: pgvector/pgvector:pg17
     container_name: runs-ai-analyzer-db
@@ -40,6 +47,8 @@ services:
       POSTGRES_USER: ${RUNS_AI_ANALYZER_DB_USER:?set in config/.env}
     ports:
       - "5444:5432"
+    volumes:
+      - runs_ai_shared_pg_data:/var/lib/postgresql/data
   mytracker-db:
     image: 'postgres:17'
     container_name: 'mytracker-db'
@@ -49,6 +58,8 @@ services:
       POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
     ports:
       - "5440:5432"
+    volumes:
+      - mytracker_pg_data:/var/lib/postgresql/data
   sathishproject-rabbitmq:
     image: rabbitmq:4.1-management-alpine
     container_name: sathishproject-rabbitmq
@@ -105,6 +116,13 @@ services:
       retries: 10
     networks:
       - gotoaws_net
+
+volumes:
+  event_service_pg_data:
+  shedlock_pg_data:
+  runs_app_shared_pg_data:
+  runs_ai_shared_pg_data:
+  mytracker_pg_data:
 
 networks:
   gotoaws_net:

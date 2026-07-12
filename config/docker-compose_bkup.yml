@@ -4,9 +4,9 @@ services:
   postgres:
     image: 'postgres:17'
     environment:
-      - 'POSTGRES_DB=postgres'
-      - 'POSTGRES_PASSWORD=psqladminpas$'
-      - 'POSTGRES_USER=psqladmin'
+      - 'POSTGRES_DB=${MYTRACKER_DB_NAME:-postgres}'
+      - 'POSTGRES_PASSWORD=${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}'
+      - 'POSTGRES_USER=${EVENTS_TRACKER_DB_USER:?set in config/.env}'
     ports:
       - '5432:5432'
   activemq_artemis:
