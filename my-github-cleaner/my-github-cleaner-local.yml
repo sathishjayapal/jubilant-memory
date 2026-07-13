@@ -3,11 +3,15 @@ server:
   port: ${PORT:7080}
 
 ################ Database #####################
+# Uses the GITHUB_CLEANER_DB_* naming convention (matches consolidated-postgres's
+# projects.txt / vm-db-up.sh, which is what actually sets these on the VM and in
+# each project's local .env) — not JDBC_DATABASE_* or SPRING_DATASOURCE_*, so
+# there's exactly one name per project to keep in sync everywhere.
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+    url: ${GITHUB_CLEANER_DB_URL}
+    username: ${GITHUB_CLEANER_DB_USER}
+    password: ${GITHUB_CLEANER_DB_PASSWORD}
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
@@ -72,8 +76,12 @@ management:
     port: ${MANAGEMENT_PORT:8081}
 
 ################ Eventstracker Service Configuration #####################
-eventstracker:
-  url: ${EVENTSTRACKER_URL:http://localhost:9081}
+# EventTrackerService.java reads these as RAW env vars via environment.getProperty(),
+# not via this "eventstracker.*" YAML path (that binding is unused/dead — nothing
+# in the code reads it). The actual requirements, and they're hard requirements
+# (the service throws if any is missing), are the literal container/OS env vars:
+#   EVENTSTRACKER_URL, eventstracker_username, eventstracker_password
+# Set those three directly wherever this app runs — a YAML block here can't help.
 
 decorator:
   datasource:
@@ -86,6 +94,3 @@ sathishprojects:
   github_operations_queue: q.sathishprojects.github.api.events
   sathish_project_events_exchange: x.sathishprojects.fanout
   github_routing_key: sathishprojects.github.api.event
-
-eventDomainUser: ${EVENT_DOMAIN_USER}
-eventDomainUserPassword: ${EVENT_DOMAIN_USER_PASSWORD}

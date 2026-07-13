@@ -6,10 +6,13 @@
 # its Portainer stack environment. That keeps secrets (passwords) out of git —
 # exactly like eventstracker-prod.yml.
 
+
 server:
   port: 8085
 
 spring:
+  application:
+    name: dbcleaner
   datasource:
     url: ${JDBC_DATABASE_URL}
     username: ${JDBC_DATABASE_USERNAME}
