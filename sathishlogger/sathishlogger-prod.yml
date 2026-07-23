@@ -1,0 +1,61 @@
+######## SathishLogger Production Configuration #########
+server:
+  port: ${SERVER_PORT:8080}
+
+################ Database #####################
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    hikari:
+      connection-timeout: 50000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      auto-commit: false
+      connection-test-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+          batch_size: 50
+        id:
+          new_generator_mappings: true
+        generate_statistics: false
+        order_inserts: true
+        order_updates: true
+        connection:
+          provider_disables_autocommit: true
+
+################ Logging #####################
+logging:
+  level:
+    com.sathish.sathishlogger: INFO
+    org.springframework.cloud.config: INFO
+    org.springframework.web: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ${LOG_FILE_PATH:./logs/sathishlogger.log}
+
+################ Custom Properties #####################
+sathishlogger:
+  storage:
+    type: ${STORAGE_TYPE:database}
+    file-path: ${STORAGE_FILE_PATH:./logs/application-logs.json}
+  security:
+    api-key-enabled: ${API_KEY_ENABLED:false}
+    api-key: ${API_KEY:}
+  retention:
+    days: ${LOG_RETENTION_DAYS:30}
+  batch:
+    max-size: ${BATCH_MAX_SIZE:100}
