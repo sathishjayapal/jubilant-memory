@@ -1,84 +1,14 @@
+# NOTE: local-dev DB/RabbitMQ/mongodb services (eventstracker, runs-app,
+# runs-ai-analyzer, mytracker, rabbitmq, gotoaws-sathish's mongodb) moved to
+# consolidated-postgres/compose/docker-compose-local.yml — this file is scoped to
+# the Spring Cloud Config Server only from here on.
+# See consolidated-postgres/docs/ENVIRONMENTS.md.
+#
+# `name: sathish-project-infra` is kept unchanged on purpose — consolidated-postgres's
+# compose file uses the same project name, so both files' resources stay recognized as
+# part of the same logical group without actually needing to run together.
 name: sathish-project-infra
 services:
-  postgres:
-    container_name: event-service-db
-    image: postgres:17.5
-    environment:
-      - POSTGRES_DB=${EVENTS_TRACKER_DB_NAME:-event-service}
-      - POSTGRES_USER=${EVENTS_TRACKER_DB_USER:?set in config/.env}
-      - POSTGRES_PASSWORD=${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}
-    ports:
-      - 6433:5432
-    volumes:
-      # persist eventstracker data across container recreation
-      - event_service_pg_data:/var/lib/postgresql/data
-  postgres-shedlock-post-db:
-    image: 'postgres:17'
-    container_name: 'postgres-shedlock-post-db'
-    environment:
-      POSTGRES_DB: ${SHEDLOCK_DB_NAME:-postgres}
-      POSTGRES_PASSWORD: ${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}
-      POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
-    ports:
-      - "5441:5432"
-    volumes:
-      - shedlock_pg_data:/var/lib/postgresql/data
-  runs-app-db:
-    image: 'postgres:17'
-    container_name: 'runs-app-db'
-    profiles:
-      - runs-app
-    environment:
-      POSTGRES_DB: ${RUNS_APP_DB_NAME:-runs-app}
-      POSTGRES_PASSWORD: ${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}
-      POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
-    ports:
-      - "5442:5432"
-    volumes:
-      - runs_app_shared_pg_data:/var/lib/postgresql/data
-  runs-ai-analyzer-db:
-    image: pgvector/pgvector:pg17
-    container_name: runs-ai-analyzer-db
-    profiles:
-      - running-ai
-    environment:
-      POSTGRES_DB: ${RUNS_AI_ANALYZER_DB_NAME:-runs-ai-analyzer}
-      POSTGRES_PASSWORD: ${RUNS_AI_ANALYZER_DB_PASSWORD:?set in config/.env}
-      POSTGRES_USER: ${RUNS_AI_ANALYZER_DB_USER:?set in config/.env}
-    ports:
-      - "5444:5432"
-    volumes:
-      - runs_ai_shared_pg_data:/var/lib/postgresql/data
-  mytracker-db:
-    image: 'postgres:17'
-    container_name: 'mytracker-db'
-    environment:
-      POSTGRES_DB: ${MYTRACKER_DB_NAME:-postgres}
-      POSTGRES_PASSWORD: ${EVENTS_TRACKER_DB_PASSWORD:?set in config/.env}
-      POSTGRES_USER: ${EVENTS_TRACKER_DB_USER:?set in config/.env}
-    ports:
-      - "5440:5432"
-    volumes:
-      - mytracker_pg_data:/var/lib/postgresql/data
-  sathishproject-rabbitmq:
-    image: rabbitmq:4.1-management-alpine
-    container_name: sathishproject-rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME:?set in config/.env}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD:?set in config/.env}
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    healthcheck:
-      test: rabbitmq-diagnostics check_port_connectivity
-      interval: 30s
-      timeout: 30s
-      retries: 10
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-
   config-server:
     container_name: sathish-config-server
     image: travelhelper0h/sathishproject-config-server:latest
@@ -97,32 +27,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  mongodb:
-    container_name: mongodb_gotoaws_sathish
-    image: mongo:8.0.13
-    environment:
-      - MONGO_INITDB_DATABASE=gotoaws-sathish
-    command:
-      - --replSet
-      - rs0
-      - --bind_ip_all
-    ports:
-      - 27017:27017
-    healthcheck:
-      test: test $$(mongosh --quiet --eval "try {rs.initiate({_id:'rs0',members:[{_id:0,host:\"mongodb:27017\"}]})} catch(e) {rs.status().ok}") -eq 1
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    networks:
-      - gotoaws_net
-
-volumes:
-  event_service_pg_data:
-  shedlock_pg_data:
-  runs_app_shared_pg_data:
-  runs_ai_shared_pg_data:
-  mytracker_pg_data:
 
 networks:
   gotoaws_net:
