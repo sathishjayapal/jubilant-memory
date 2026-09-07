@@ -36,6 +36,9 @@ spring:
       prefetch: ${RABBITMQ_LISTENER_PREFETCH:10}
       concurrency: ${RABBITMQ_LISTENER_CONCURRENCY:2}
       max-concurrency: ${RABBITMQ_LISTENER_MAX_CONCURRENCY:5}
+  http:
+    clients:
+      read-timeout: ${OLLAMA_CHAT_TIMEOUT:600s}
   ai:
     anthropic:
       api-key: ${ANTHROPIC_API_KEY:}
@@ -48,8 +51,6 @@ spring:
       chat:
         options:
           model: ${OLLAMA_CHAT_MODEL}
-        request:
-          timeout: ${OLLAMA_CHAT_TIMEOUT:600s}
       embedding:
         enabled: true
         options:
