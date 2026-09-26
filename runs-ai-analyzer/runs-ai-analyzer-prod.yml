@@ -43,7 +43,7 @@ spring:
       read-timeout: ${OLLAMA_CHAT_TIMEOUT:600s}
   ai:
     anthropic:
-      api-key: ${ANTHROPIC_API_KEY}
+      api-key: ${ANTHROPIC_API_KEY:}
       chat:
         options:
           model: ${ANTHROPIC_CHAT_MODEL:claude-sonnet-4-5-20250929}
@@ -63,6 +63,18 @@ spring:
         index-type: HNSW
         distance-type: COSINE_DISTANCE
         dimensions: 768
+
+# Chat failover: Anthropic -> ACG sandbox Ollama -> OLLAMA_BASE_URL (this box's Ollama).
+# Anthropic is skipped when ANTHROPIC_API_KEY is missing/invalid; ACG is skipped when unset.
+ai:
+  fallback:
+    acg-ollama:
+      base-url: ${ACG_OLLAMA_BASE_URL:}
+      chat-model: ${ACG_OLLAMA_CHAT_MODEL:}
+      connect-timeout: ${ACG_OLLAMA_CONNECT_TIMEOUT:3s}
+    circuit-breaker:
+      wait-open: ${AI_FALLBACK_WAIT_OPEN:60s}
+      auth-failure-open-duration: ${AI_FALLBACK_AUTH_OPEN:30m}
 
 springdoc:
   api-docs:
