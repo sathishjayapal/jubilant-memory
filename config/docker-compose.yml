@@ -12,6 +12,7 @@ services:
   config-server:
     container_name: sathish-config-server
     image: travelhelper0h/sathishproject-config-server:latest
+    restart: unless-stopped
     ports:
       - "8888:8888"
     environment:
@@ -22,11 +23,15 @@ services:
       - APP_PORT=${APP_PORT}
     networks:
       - gotoaws_net
+    # Same probe as consolidated-postgres/compose/docker-compose-vm.yml: actuator lives under
+    # /sathishconfigserver behind basic auth, and the alpine JRE image has wget but no curl.
+    # /info (not /health) because /health reports DOWN when no default git env loads.
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: [ "CMD-SHELL", "wget -qO- --header=\"Authorization: Basic $$(echo -n $$username:$$pass | base64)\" http://localhost:8888/sathishconfigserver/info >/dev/null 2>&1 || exit 1" ]
+      interval: 20s
+      timeout: 10s
+      retries: 8
+      start_period: 40s
 
 networks:
   gotoaws_net:
