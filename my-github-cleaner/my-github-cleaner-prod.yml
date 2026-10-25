@@ -1,0 +1,75 @@
+# Production profile for my-github-cleaner (verbose-barnacle).
+# All secrets/host-specific values are environment variables injected by the
+# Portainer stack — nothing sensitive lives in this file.
+
+server:
+  port: 7080
+
+spring:
+  datasource:
+    url: ${GITHUB_CLEANER_DB_URL}
+    username: ${GITHUB_CLEANER_DB_USER}
+    password: ${GITHUB_CLEANER_DB_PASSWORD}
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        id:
+          new_generator_mappings: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+  docker:
+    compose:
+      enabled: false
+
+# Application users — credentials come from stack env vars
+app:
+  security:
+    admin:
+      username: ${APP_SECURITY_ADMIN_USERNAME}
+      password: ${APP_SECURITY_ADMIN_PASSWORD}
+    viewer:
+      username: ${APP_SECURITY_VIEWER_USERNAME}
+      password: ${APP_SECURITY_VIEWER_PASSWORD}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+
+error:
+  handling:
+    http-status-in-json-response: true
+    exception-logging: WITH_STACKTRACE
+    full-stacktrace-http-statuses: 5xx
+    log-levels:
+      5xx: ERROR
+    http-statuses:
+      org.springframework.security.authorization.AuthorizationDeniedException: unauthorized
+    codes:
+      RepositoriesRepoNameUnique: REPOSITORIES_REPO_NAME_UNIQUE
+
+logging:
+  level:
+    root: info
+    me.sathish.my_github_cleaner: INFO
